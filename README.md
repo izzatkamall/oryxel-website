@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Oryxel — Website
 
-## Getting Started
+A single-page, scroll-driven, fully animated marketing site for **Oryxel**, a
+Pakistan-based technology studio (Web, Mobile, UI/UX, AI Automation, SaaS MVP).
+Dark, premium, Awwwards-aimed.
 
-First, run the development server:
+## Tech stack
+
+- **Next.js 16** (App Router) + **TypeScript**
+- **Tailwind CSS v4** (CSS-based config via `@theme` in `app/globals.css`)
+- **GSAP + ScrollTrigger** — all scroll/entrance animations
+- **Lenis** — smooth scrolling
+- **Three.js + React Three Fiber + drei** — the hero 3D element
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm start        # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/            layout.tsx, page.tsx (orchestrates sections), globals.css
+components/      Preloader, Navbar, Hero, HeroScene (3D), About, Services,
+                Marquee, Work, Stats, Process, Testimonial, CTA, Footer,
+                CustomCursor, SmoothScroll
+hooks/          useGSAP (scoped gsap.context)
+lib/            animations.ts (reveal/fade/count presets), lenis.ts (instance)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Design system (in `app/globals.css` → `@theme`)
 
-## Learn More
+| Token | Value |
+| --- | --- |
+| bg / bg-soft | `#050505` / `#0a0a0a` |
+| fg / muted | `#f5f5f5` / `#888888` |
+| line | `#1a1a1a` |
+| accent | `#4a7bf7` (electric blue) |
 
-To learn more about Next.js, take a look at the following resources:
+Fonts: **Space Grotesk** (headings), **Inter** (body), loaded via `next/font`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Accessibility & performance
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `prefers-reduced-motion` disables Lenis, the preloader timeline, the marquee,
+  and swaps the 3D hero for a static shape.
+- 3D hero + custom cursor are disabled on touch / coarse-pointer devices; the
+  hero shows a static fallback there.
+- The 3D scene is lazy-loaded (`next/dynamic`, client-only).
 
-## Deploy on Vercel
+## Assumptions / placeholders to replace before launch
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+These are stand-ins added during the build — swap them for real content:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Email:** `info@oryxel.xyz` ✅ (real)
+- **WhatsApp:** `+92 309 4818226` ✅ (real, linked as `wa.me/923094818226`)
+- **Instagram:** `@oryxell` ✅ (real)
+- **Calendly / "Book a Call":** `calendly.com/oryxel` — placeholder URL
+- **LinkedIn / X (footer):** guessed URLs — confirm or replace
+- **Testimonial:** "Sarah Lin · Helix Finance" — fictional, to be updated later
+- **Work projects:** Helix Finance, Nomad Health, Atlas Commerce, Sentinel AI —
+  placeholder names with abstract dot-grid visuals. Each project is a component
+  in `components/Work.tsx`; swap the visual `div` for a `next/image` `<Image>`
+  when real case-study assets exist.
+
+## Deploy (Vercel)
+
+Push to GitHub and import the repo at [vercel.com/new](https://vercel.com/new),
+or run `vercel` with the CLI. No environment variables are required.

@@ -54,18 +54,30 @@ Legend: [x] done · [~] in progress · [ ] todo
 - [ ] **USER TEST #2:** smooth scroll feel, cursor dot+ring, "View" on box, scroll reveals
 
 ### Phase 2 — Sections (scroll order)
-- [ ] Preloader (ORYXEL assembles, curtain reveal)
-- [ ] Navbar (transparent→slim, mobile fullscreen overlay)
-- [ ] Hero + HeroScene (R3F wireframe icosahedron, mouse parallax)
-- [ ] About (line-by-line reveal, drawing rule line)
-- [ ] Services (expandable full-width list, 01–05)
-- [ ] Marquee (infinite ticker, stroke + filled text)
-- [ ] Work (3–4 placeholder projects, hover scale + "View Project")
-- [ ] Stats (count-up on scroll)
-- [ ] Process (4-step, drawing connector line)
-- [ ] Testimonial (single pull-quote)
-- [ ] CTA / Contact
-- [ ] Footer (giant faded ORYXEL watermark, back-to-top)
+- [x] Preloader (ORYXEL letters rise + accent line draw, curtain slide-up)
+- [x] Navbar (transparent→slim on scroll, underline-slide hover, mobile fullscreen overlay)
+- [x] Hero + HeroScene (R3F wireframe icosahedron + edge-glow + mouse parallax; magnetic CTA; static fallback on touch/reduced-motion)
+- [x] Lenis instance shared via lib/lenis.ts singleton (avoids Window type conflict)
+- [ ] **USER TEST #3:** preloader plays → curtain reveals hero; nav slides in; 3D spins + tilts to mouse; headline word-reveal; magnetic CTA; nav goes slim on scroll; mobile hamburger overlay
+- NOTE: dev server run via background tool (shell `&` dies on shell exit). Run: `npm run dev`.
+- [x] About (line-by-line mask reveal, scrub-drawn rule line, founded meta)
+- [x] Services (full-width list 01–05, hover wash + expand desc, staggered reveal)
+- [x] Marquee (infinite GSAP ticker, alternating filled/stroke text)
+- [ ] **USER TEST #4:** About lines rise in + rule draws on scroll; Services rows stagger in, hover expands desc + blue wash; Marquee scrolls infinitely
+- NOTE: harmless R3F log "THREE.Clock deprecated" — from library internals, ignore.
+- [x] Work (4 placeholder projects, dot-grid abstract visuals, hover scale + "View Project", data-cursor=view, staggered reveal)
+- [x] Stats (count-up from 0 on scroll: 50+/20+/3/98%)
+- [x] Process (4-step vertical timeline, scrub-drawn accent connector line)
+- [ ] **USER TEST #5:** Work projects stagger + hover overlay; Stats count up on entry; Process line draws as you scroll, steps reveal
+- [x] Testimonial (single italic-serif pull-quote, big accent quote mark, word reveal)
+- [x] CTA / Contact (word-reveal headline, magnetic "Get in Touch", email/IG/Book-a-Call)
+- [x] Footer (giant faded ORYXEL watermark, socials, Lenis back-to-top)
+- [ ] **USER TEST #6:** Testimonial reveal; CTA magnetic button + links; Footer watermark + back-to-top scrolls smoothly
+
+PLACEHOLDERS to replace later (document in README):
+- Email: hello@oryxel.com · Calendly: calendly.com/oryxel · IG: instagram.com/oryxell
+- Socials LinkedIn/X are guessed URLs · Testimonial "Sarah Lin, Helix Finance" is fictional
+- Work projects (Helix Finance, Nomad Health, Atlas Commerce, Sentinel AI) are placeholders
 
 ### Phase 3 — Polish
 - [ ] Page-load choreography sequence

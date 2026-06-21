@@ -37,8 +37,51 @@ export default function CustomCursor() {
     const ringY = gsap.quickTo(ring, "y", { duration: 0.45, ease: "power3" });
 
     let visible = false;
+    let lastX = -1;
+    let lastY = -1;
+
+    const interactiveSel =
+      'a, button, [role="button"], input, textarea, [data-cursor]';
+
+    // Single source of truth for the ring's appearance. We diff against the
+    // last applied state so we only fire a tween when it actually changes.
+    let state: "idle" | "hover" | "view" = "idle";
+    const setState = (next: "idle" | "hover" | "view") => {
+      if (next === state) return;
+      state = next;
+      if (next === "view") {
+        gsap.to(ring, { scale: 2.6, borderColor: "#4a7bf7", duration: 0.35 });
+        gsap.to(label, { autoAlpha: 1, duration: 0.25 });
+        gsap.to(dot, { autoAlpha: 0, duration: 0.2 });
+      } else if (next === "hover") {
+        gsap.to(ring, { scale: 1.8, borderColor: "#4a7bf7", duration: 0.35 });
+        gsap.to(label, { autoAlpha: 0, duration: 0.2 });
+        gsap.to(dot, { autoAlpha: 1, duration: 0.2 });
+      } else {
+        gsap.to(ring, {
+          scale: 1,
+          borderColor: "rgba(245,245,245,0.6)",
+          duration: 0.35,
+        });
+        gsap.to(label, { autoAlpha: 0, duration: 0.2 });
+        gsap.to(dot, { autoAlpha: 1, duration: 0.2 });
+      }
+    };
+
+    // Re-evaluate what's under the cursor from its current position. Works for
+    // both pointer movement AND scrolling (when elements slide under a still
+    // cursor), which the old mouseover/mouseout approach missed.
+    const evaluate = () => {
+      if (lastX < 0) return;
+      const el = document.elementFromPoint(lastX, lastY) as HTMLElement | null;
+      const target = el?.closest(interactiveSel) as HTMLElement | null;
+      if (!target) return setState("idle");
+      setState(target.getAttribute("data-cursor") === "view" ? "view" : "hover");
+    };
 
     const onMove = (e: MouseEvent) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
       if (!visible) {
         visible = true;
         gsap.to([dot, ring], { autoAlpha: 1, duration: 0.3 });
@@ -47,6 +90,7 @@ export default function CustomCursor() {
       dotY(e.clientY);
       ringX(e.clientX);
       ringY(e.clientY);
+      evaluate();
     };
 
     const onLeave = () => {
@@ -54,43 +98,14 @@ export default function CustomCursor() {
       gsap.to([dot, ring], { autoAlpha: 0, duration: 0.3 });
     };
 
-    // Delegated hover detection for interactive targets.
-    const interactiveSel =
-      'a, button, [role="button"], input, textarea, [data-cursor]';
-    const onOver = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement)?.closest(interactiveSel);
-      if (!target) return;
-      const mode = target.getAttribute("data-cursor");
-      if (mode === "view") {
-        gsap.to(ring, { scale: 2.6, borderColor: "#4a7bf7", duration: 0.35 });
-        gsap.to(label, { autoAlpha: 1, duration: 0.25 });
-        gsap.to(dot, { autoAlpha: 0, duration: 0.2 });
-      } else {
-        gsap.to(ring, { scale: 1.8, borderColor: "#4a7bf7", duration: 0.35 });
-      }
-    };
-    const onOut = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement)?.closest(interactiveSel);
-      if (!target) return;
-      gsap.to(ring, {
-        scale: 1,
-        borderColor: "rgba(245,245,245,0.6)",
-        duration: 0.35,
-      });
-      gsap.to(label, { autoAlpha: 0, duration: 0.2 });
-      gsap.to(dot, { autoAlpha: 1, duration: 0.2 });
-    };
-
     window.addEventListener("mousemove", onMove);
     document.addEventListener("mouseleave", onLeave);
-    document.addEventListener("mouseover", onOver);
-    document.addEventListener("mouseout", onOut);
+    window.addEventListener("scroll", evaluate, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
-      document.removeEventListener("mouseover", onOver);
-      document.removeEventListener("mouseout", onOut);
+      window.removeEventListener("scroll", evaluate);
     };
   }, [enabled]);
 
