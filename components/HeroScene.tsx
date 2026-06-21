@@ -83,20 +83,23 @@ export default function HeroScene() {
   const pointer = useRef<Pointer>({ x: 0, y: 0 });
 
   useEffect(() => {
+    // Only fall back to the static shape for reduced-motion users. The real
+    // 3D renders on mobile too (it's a single low-poly mesh — cheap enough).
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const coarse = window.matchMedia("(pointer: coarse)").matches;
-    setMode(reduce || coarse ? "static" : "3d");
+    setMode(reduce ? "static" : "3d");
   }, []);
 
-  // Track the global pointer regardless of canvas pointer-events.
+  // Track the global pointer regardless of canvas pointer-events. Using
+  // pointermove covers mouse AND touch-drag, so the shape reacts to finger
+  // movement (including while scrolling) on phones.
   useEffect(() => {
     if (mode !== "3d") return;
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e: PointerEvent) => {
       pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointer.current.y = -((e.clientY / window.innerHeight) * 2 - 1);
     };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
   }, [mode]);
 
   if (mode === "loading") return null;
@@ -105,7 +108,7 @@ export default function HeroScene() {
   return (
     <Canvas
       camera={{ position: [0, 0, 5], fov: 45 }}
-      dpr={[1, 2]}
+      dpr={[1, 1.75]}
       gl={{ antialias: true, alpha: true }}
       style={{ background: "transparent" }}
     >
