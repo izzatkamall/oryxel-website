@@ -46,10 +46,12 @@ Legend: [x] done · [~] in progress · [ ] todo
 - [ ] **USER TEST #1:** `npm run dev` → confirm dark bg, fonts, blue accent render
 
 ### Phase 1 — Core plumbing
-- [ ] SmoothScroll.tsx (Lenis wrapper + GSAP ScrollTrigger sync)
-- [ ] CustomCursor.tsx (dot + lerped circle, hidden on touch)
-- [ ] lib/animations.ts (reusable GSAP presets)
-- [ ] hooks/useGSAP.ts
+- [x] SmoothScroll.tsx (Lenis wrapper + GSAP ScrollTrigger sync, reduced-motion aware)
+- [x] CustomCursor.tsx (dot + lerped ring, "View" mode via data-cursor, hidden on touch)
+- [x] lib/animations.ts (revealWords, fadeUp, countUp, splitToMaskedWords presets)
+- [x] hooks/useGSAP.ts (scoped gsap.context hook)
+- [x] Wired SmoothScroll + CustomCursor into layout.tsx
+- [ ] **USER TEST #2:** smooth scroll feel, cursor dot+ring, "View" on box, scroll reveals
 
 ### Phase 2 — Sections (scroll order)
 - [ ] Preloader (ORYXEL assembles, curtain reveal)

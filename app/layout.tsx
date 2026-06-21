@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
+import CustomCursor from "@/components/CustomCursor";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -37,7 +39,10 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} cursor-none-desktop`}
     >
-      <body>{children}</body>
+      <body>
+        <CustomCursor />
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
