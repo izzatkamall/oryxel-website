@@ -87,12 +87,12 @@ export default function Hero({ start }: { start: boolean }) {
     <section
       id="top"
       ref={scope as React.RefObject<HTMLElement>}
-      className="relative flex min-h-screen items-center overflow-hidden"
+      className="relative flex min-h-[100svh] items-start overflow-hidden pt-[20vh] md:items-center md:pt-0"
     >
-      {/* 3D scene — right half on desktop, full faded backdrop on mobile */}
+      {/* 3D scene — right half on desktop; hidden on mobile for a clean hero */}
       <div
         data-hero-scene
-        className="pointer-events-none absolute inset-0 opacity-50 md:left-auto md:right-0 md:w-[58%] md:opacity-100"
+        className="pointer-events-none absolute inset-0 hidden md:left-auto md:right-0 md:block md:w-[58%]"
       >
         <HeroScene />
       </div>
@@ -136,7 +136,7 @@ export default function Hero({ start }: { start: boolean }) {
       {/* Scroll hint */}
       <div
         data-hero-scroll
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-muted)]"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-[var(--color-muted)] md:flex"
       >
         Scroll
         <span className="h-10 w-px animate-pulse bg-[var(--color-line)]" />

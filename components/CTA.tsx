@@ -59,7 +59,7 @@ export default function CTA() {
     <section
       id="contact"
       ref={scope as React.RefObject<HTMLElement>}
-      className="relative mx-auto flex min-h-[90vh] max-w-[1600px] flex-col items-center justify-center px-6 py-[15vh] text-center md:px-10"
+      className="relative mx-auto flex min-h-[80svh] max-w-[1600px] flex-col items-center justify-center px-6 py-24 text-center md:min-h-[90vh] md:px-10 md:py-[15vh]"
     >
       <p className="mb-8 text-xs uppercase tracking-[0.35em] text-[var(--color-muted)]">
         Let&apos;s Talk

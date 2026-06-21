@@ -80,11 +80,17 @@ PLACEHOLDERS to replace later (document in README):
 - Work projects (Helix Finance, Nomad Health, Atlas Commerce, Sentinel AI) are placeholders
 
 ### Phase 3 — Polish
-- [ ] Page-load choreography sequence
-- [ ] Mobile simplification + reduced-motion fallbacks
-- [ ] `npm run build` zero errors
-- [ ] README.md with assumptions
-- [ ] Lighthouse pass
+- [x] Page-load choreography sequence (preloader -> hero timeline)
+- [x] Mobile simplification + reduced-motion fallbacks (3D static, cursor off, marquee/lenis off on reduce)
+- [x] `npm run build` zero errors (verified)
+- [x] README.md with assumptions
+- [ ] Lighthouse pass (do after deploy on live URL)
+- [ ] Manual mobile QA at 375/768/1024 (recommend before launch)
+
+### Deployment
+- Pushed to GitHub: izzatkamall/oryxel-website (private), branch master, commit 4e78987
+- Method chosen: GitHub -> Vercel dashboard import (auto-deploy on push)
+- No env vars required.
 
 ## Notes / gotchas
 

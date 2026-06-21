@@ -70,11 +70,17 @@ export default function Navbar({ start }: { start: boolean }) {
 
   const go = (href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
-    setMenuOpen(false);
     const lenis = getLenis();
-    const target = document.querySelector(href);
-    if (lenis && target) lenis.scrollTo(target as HTMLElement, { offset: 0 });
-    else target?.scrollIntoView();
+    const target = document.querySelector(href) as HTMLElement | null;
+    setMenuOpen(false);
+    if (lenis && target) {
+      // Lenis is paused while the menu is open — resume before scrolling,
+      // otherwise scrollTo is a no-op.
+      lenis.start();
+      lenis.scrollTo(target, { offset: 0 });
+    } else if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (

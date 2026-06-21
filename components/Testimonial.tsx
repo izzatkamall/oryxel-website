@@ -30,7 +30,7 @@ export default function Testimonial() {
   return (
     <section
       ref={scope as React.RefObject<HTMLElement>}
-      className="mx-auto max-w-[1100px] px-6 py-[20vh] text-center md:px-10"
+      className="mx-auto max-w-[1100px] px-6 py-24 text-center md:px-10 md:py-[18vh]"
     >
       <span
         data-quote-mark

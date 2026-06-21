@@ -38,7 +38,7 @@ export default function Work() {
     <section
       id="work"
       ref={scope as React.RefObject<HTMLElement>}
-      className="mx-auto max-w-[1600px] px-6 py-[18vh] md:px-10"
+      className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-[16vh]"
     >
       <div className="mb-16 flex items-end justify-between gap-6">
         <div className="overflow-hidden">

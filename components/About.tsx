@@ -51,7 +51,7 @@ export default function About() {
     <section
       id="about"
       ref={scope as React.RefObject<HTMLElement>}
-      className="mx-auto max-w-[1600px] px-6 py-[20vh] md:px-10"
+      className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-[18vh]"
     >
       <div
         data-about-rule

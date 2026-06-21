@@ -33,7 +33,7 @@ export default function Stats() {
   return (
     <section
       ref={scope as React.RefObject<HTMLElement>}
-      className="mx-auto max-w-[1600px] border-y border-[var(--color-line)] px-6 py-[12vh] md:px-10"
+      className="mx-auto max-w-[1600px] border-y border-[var(--color-line)] px-6 py-20 md:px-10 md:py-[12vh]"
     >
       <div className="grid grid-cols-2 gap-y-12 md:grid-cols-4">
         {STATS.map((s) => (

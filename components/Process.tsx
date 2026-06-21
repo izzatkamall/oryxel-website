@@ -63,7 +63,7 @@ export default function Process() {
   return (
     <section
       ref={scope as React.RefObject<HTMLElement>}
-      className="mx-auto max-w-[1600px] px-6 py-[18vh] md:px-10"
+      className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-[16vh]"
     >
       <div className="mb-16 overflow-hidden">
         <h2

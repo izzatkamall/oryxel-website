@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { getLenis } from "@/lib/lenis";
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
@@ -28,6 +29,9 @@ export default function Home() {
       lenis?.start();
       document.body.style.overflow = "";
       window.scrollTo(0, 0);
+      // The preloader changed the layout/height; recalc all ScrollTrigger
+      // start/end positions so reveals & counters fire at the right spots.
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     }
   }, [loaded]);
 
